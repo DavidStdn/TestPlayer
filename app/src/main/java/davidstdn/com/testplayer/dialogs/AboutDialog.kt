@@ -21,7 +21,7 @@ class AboutDialog : DialogFragment() {
 
         view.findViewById<MaterialButton>(R.id.button_github).setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("https://github.com/DavidStdn")
+                data = Uri.parse("https://github.com/DavidStdn/TestPlayer")
             }
 
             startActivity(intent)
