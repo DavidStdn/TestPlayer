@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TestPlayer</string>
+    <string name="playback_channel_name">Playback</string>
+    <string name="user_agent">testplayer</string>
+    <string name="action_about">About</string>
+    <string name="made_by">Made by David Studenikin</string>
+    <string name="made_for">Especially for Nitrix Inc.</string>
+    <string name="made_in">2019</string>
+    <string name="github">GitHub</string>
+</resources>
