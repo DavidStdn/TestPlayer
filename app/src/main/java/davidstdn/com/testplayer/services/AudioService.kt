@@ -11,7 +11,6 @@ import android.net.Uri
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.source.ExtractorMediaSource
@@ -60,7 +59,7 @@ class AudioService : Service() {
     val playlist = ArrayList<Track>()
 
     /**
-     * Callback, where [player] and [playerNotificationManager] are initialized
+     * Initializes [player] and [playerNotificationManager]
      */
     override fun onCreate() {
         super.onCreate()
@@ -206,11 +205,11 @@ class AudioService : Service() {
      * Initializes [ConcatenatingMediaSource] for [player] based on [playlist]
      */
     private fun preparePlaylist(): MediaSource {
-        val mediaSources = ArrayList<MediaSource>()
-        for (i in playlist)
-            mediaSources.add(buildMediaSource(Uri.parse(i.link)))
+        val mediaSources = Array(playlist.size) {
+                buildMediaSource(Uri.parse(playlist[it].link))
+        }
 
-        return ConcatenatingMediaSource(*mediaSources.toTypedArray())
+        return ConcatenatingMediaSource(*mediaSources)
     }
 
     /**
@@ -220,7 +219,7 @@ class AudioService : Service() {
         ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory(getString(R.string.user_agent))).createMediaSource(uri)
 
     /**
-     * Callback, where [playlist] is initialized and [player] starts playing audio
+     * Initializes [playlist] and starts playing audio
      */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent == null) stopSelf()
@@ -233,19 +232,19 @@ class AudioService : Service() {
     }
 
     /**
-     * Callback, which provides application components, that want to connect to [AudioService]
+     * Provides application components, that want to connect to [AudioService],
      * with [binder]
      */
     override fun onBind(intent: Intent): IBinder = binder
 
     /**
-     * Callback, that returns true, which allows application components to call onRebind instead of onBind
+     * Returns true, which allows application components to call onRebind instead of onBind
      * if they were connected to [AudioService] in the past
      */
     override fun onUnbind(intent: Intent?): Boolean = true
 
     /**
-     * Callback, where [player] is released and [playerNotificationManager] disconnects from [player]
+     * Disconnects [playerNotificationManager] from [player] and releases [player]
      */
     override fun onDestroy() {
         playerNotificationManager.setPlayer(null)

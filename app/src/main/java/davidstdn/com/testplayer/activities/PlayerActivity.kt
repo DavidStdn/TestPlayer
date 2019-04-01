@@ -109,7 +109,7 @@ class PlayerActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     /**
-     * Callback, where [PlayerActivity] binds to [AudioService]
+     * Binds [PlayerActivity] to [AudioService]
      */
     override fun onStart() {
         super.onStart()
@@ -122,7 +122,7 @@ class PlayerActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     /**
-     * Callback, where [PlayerActivity] unbinds from [AudioService]
+     * Unbinds [PlayerActivity] from [AudioService]
      */
     override fun onStop() {
         super.onStop()
@@ -131,15 +131,15 @@ class PlayerActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     /**
-     * For [buttonRepeat]
+     * For [buttonRepeat]:
      * Changes repeat mode of player, icon of [buttonRepeat]
      * and saves new state to Shared Preferences
      *
-     * For [buttonShuffle]
+     * For [buttonShuffle]:
      * Changes shuffle mode of player, icon of [buttonShuffle]
      * and saves new state to Shared Preferences
      *
-     * For [buttonClose]
+     * For close button:
      * calls finish() method for [PlayerActivity]
      */
     override fun onClick(p0: View?) {
