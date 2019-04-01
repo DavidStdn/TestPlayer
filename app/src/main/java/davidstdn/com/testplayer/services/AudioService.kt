@@ -12,6 +12,7 @@ import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.audio.AudioAttributes
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
@@ -71,6 +72,8 @@ class AudioService : Service() {
     /**
      * Initializes [player].
      *
+     * Sets [AudioAttributes] to player in order to handle audio focus properly.
+     *
      * Adds [Player.EventListener] to [player], which tracks its current play state.
      * When [player] starts playing audio, transfers [AudioService] to foreground and
      * disallows user to dismiss [notification] and system to stop [AudioService].
@@ -86,6 +89,11 @@ class AudioService : Service() {
             DefaultRenderersFactory(this),
             DefaultTrackSelector(),
             DefaultLoadControl()
+        )
+
+        player.setAudioAttributes(
+            AudioAttributes.DEFAULT,
+            true
         )
 
         player.addListener(object : Player.EventListener {
@@ -206,7 +214,7 @@ class AudioService : Service() {
      */
     private fun preparePlaylist(): MediaSource {
         val mediaSources = Array(playlist.size) {
-                buildMediaSource(Uri.parse(playlist[it].link))
+            buildMediaSource(Uri.parse(playlist[it].link))
         }
 
         return ConcatenatingMediaSource(*mediaSources)
