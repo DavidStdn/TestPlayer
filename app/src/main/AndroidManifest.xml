@@ -12,7 +12,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
-            android:fullBackupContent="">
+            android:fullBackupContent="false">
         <service
                 android:name=".services.AudioService"
                 android:enabled="true"
