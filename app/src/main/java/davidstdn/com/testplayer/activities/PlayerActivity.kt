@@ -208,7 +208,10 @@ class PlayerActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.button_close -> {
                 finish()
-                //audioService.stopSelf()
+                Intent(this, MainActivity::class.java).also {
+                    it.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(it)
+                }
             }
         }
     }
